@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  traefik:
+    image: "traefik:v2.3"
+    container_name: traefik
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/traefik.yml:/traefik.yml:ro
+      - ./data/acme.json:/acme.json
+      # Add folder with dynamic configuration yml
+      - ./data/configurations:/configurations
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`monitor.yourdomain.com`)"
+      # Entry Point for https
+      - "traefik.http.routers.traefik.middlewares=https-redirect@file"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`monitor.yourdomain.com`)"
+      - "traefik.http.routers.traefik-secure.middlewares=user-auth@file"
+      # ACME Certificate configuration
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+networks:
+  web:
+    external: true
