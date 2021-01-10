@@ -17,5 +17,5 @@
 ## Notes
 
 - Letsencrypt takes a couple of minutes to provide the certificate. Therefore allow 5 minute before accessing your domain.
-- Did it work? offer me a coffee: https://www.buymeacoffee.com/dashboard
+- Did it work? offer me a coffee: https://www.buymeacoffee.com/mrtobor
 
