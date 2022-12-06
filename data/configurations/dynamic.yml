@@ -20,7 +20,7 @@ http:
     user-auth:
       basicAuth:
         users:
-          - "user:$apr1$gyodfa1t$VjiqekNUxNRDSjUW0UDdM0"
+          #- "user:password"
           
 tls:
   options:
