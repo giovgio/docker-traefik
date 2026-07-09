@@ -1,4 +1,4 @@
-# Traefik setup 
+# Traefik v1 - setup 
 
 ## Actions
 
